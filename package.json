@@ -1,0 +1,24 @@
+{
+  "name": "aravindhan-changes---18_june_2026",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "cd Minus_Magic_Glass_v3-main && cross-env BROWSER=chrome pnpm dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "cross-env": "^10.1.0",
+    "vite": "^5.4.1"
+  }
+}
