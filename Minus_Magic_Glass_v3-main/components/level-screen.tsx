@@ -114,5 +114,3 @@ function PlaceholderLevel({ level, onBack, onComplete }: LevelScreenProps) {
     </main>
   )
 }
-
-}
