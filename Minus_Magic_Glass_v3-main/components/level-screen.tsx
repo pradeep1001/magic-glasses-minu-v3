@@ -48,14 +48,20 @@ export function LevelScreen({ level, onBack, onComplete }: LevelScreenProps) {
   return <PlaceholderLevel level={level} onBack={onBack} onComplete={onComplete} />
 }
 
-/** Placeholder for levels without a module yet. */
+//** Placeholder for levels without a module yet. */
 function PlaceholderLevel({ level, onBack, onComplete }: LevelScreenProps) {
   return (
     <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-background px-4 py-10">
       <Starfield count={70} />
 
       <header className="absolute left-0 top-0 z-10 px-5 py-5">
-        <Button size="icon" variant="secondary" className="rounded-full" aria-label="Back to map" onClick={() => { playClick(); onBack() }}>
+        <Button
+          size="icon"
+          variant="secondary"
+          className="rounded-full"
+          aria-label="Back to map"
+          onClick={() => { playClick(); onBack() }}
+        >
           <ArrowLeft className="size-5" />
         </Button>
       </header>
@@ -71,33 +77,42 @@ function PlaceholderLevel({ level, onBack, onComplete }: LevelScreenProps) {
         <span className="font-heading inline-flex items-center gap-2 rounded-full bg-muted px-4 py-1.5 text-sm font-bold text-secondary">
           {level.subtitle}
         </span>
-        <h1 className="font-heading text-4xl font-extrabold text-foreground text-balance">{level.title}</h1>
-        <p className="text-lg font-semibold text-muted-foreground text-pretty md:text-xl">{level.description}</p>
+        <h1 className="font-heading text-4xl font-extrabold text-foreground text-balance">
+          {level.title}
+        </h1>
+        <p className="text-lg font-semibold text-muted-foreground text-pretty md:text-xl">
+          {level.description}
+        </p>
 
-       <div className="mt-6 flex flex-wrap justify-center gap-4">
-  <Button
-    size="lg"
-    className="rounded-full px-8 text-lg font-bold"
-    onClick={() => window.location.href = `/planet/level${level.id}/watch`}
-  >
-    🎥 Watch
-  </Button>
+        {/* Navigation buttons */}
+        <div className="mt-6 flex flex-wrap justify-center gap-4">
+          <Button
+            size="lg"
+            className="rounded-full px-8 text-lg font-bold"
+            onClick={() => window.location.href = `/planet/level${level.id}/watch`}
+          >
+            🎥 Watch
+          </Button>
 
-  <Button
-    size="lg"
-    className="rounded-full px-8 text-lg font-bold"
-    onClick={() => window.location.href = `/planet/level${level.id}/play`}
-  >
-    🎮 Play
-  </Button>
+          <Button
+            size="lg"
+            className="rounded-full px-8 text-lg font-bold"
+            onClick={() => window.location.href = `/planet/level${level.id}/play`}
+          >
+            🎮 Play
+          </Button>
 
-  <Button
-    size="lg"
-    className="rounded-full px-8 text-lg font-bold"
-    onClick={() => window.location.href = `/planet/level${level.id}/quiz`}
-  >
-    🧠 Quiz
-  </Button>
-</div>
+          <Button
+            size="lg"
+            className="rounded-full px-8 text-lg font-bold"
+            onClick={() => window.location.href = `/planet/level${level.id}/quiz`}
+          >
+            🧠 Quiz
+          </Button>
+        </div>
+      </div>
+    </main>
   )
+}
+
 }
