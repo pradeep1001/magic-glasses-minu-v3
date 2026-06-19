@@ -74,19 +74,31 @@ function PlaceholderLevel({ level, onBack, onComplete }: LevelScreenProps) {
         <h1 className="font-heading text-4xl font-extrabold text-foreground text-balance">{level.title}</h1>
         <p className="text-lg font-semibold text-muted-foreground text-pretty md:text-xl">{level.description}</p>
 
-        <div className="mt-2 flex items-center gap-2 rounded-2xl border border-dashed border-border bg-card px-5 py-4 text-sm font-semibold text-muted-foreground">
-          <Wrench className="size-5 text-secondary" />
-          This level&apos;s activity is coming soon — we&apos;ll build it together next!
-        </div>
+        <div className="mt-6 flex flex-wrap justify-center gap-4">
+  <Button
+    size="lg"
+    className="rounded-full px-8 text-lg font-bold"
+    onClick={() => window.location.href = `/planet/level${level.id}/watch`}
+  >
+    🎥 Watch
+  </Button>
 
-        <Button
-          size="lg"
-          onClick={() => { playClick(); onComplete(level.id) }}
-          className="font-heading mt-2 rounded-full px-8 text-lg font-extrabold"
-        >
-          <CheckCircle2 className="size-6" />
-          Mark Calibrated
-        </Button>
+  <Button
+    size="lg"
+    className="rounded-full px-8 text-lg font-bold"
+    onClick={() => window.location.href = `/planet/level${level.id}/learn`}
+  >
+    📚 Learn
+  </Button>
+
+  <Button
+    size="lg"
+    className="rounded-full px-8 text-lg font-bold"
+    onClick={() => window.location.href = `/level-quiz`}
+  >
+    🧠 Quiz
+  </Button>
+</div>
       </div>
     </main>
   )
