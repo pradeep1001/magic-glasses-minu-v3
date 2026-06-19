@@ -30,6 +30,18 @@ export default function Page() {
       ? 1
       : Math.min(Math.max(...completed) + 1, 5)
 
+  // If returning from a level page (e.g. /?focus=4), open the map focused on that planet
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const focus = parseInt(params.get('focus') ?? '', 10)
+    if (focus >= 1 && focus <= 5) {
+      setMapFocusLevelId(focus)
+      setScreen('map')
+      // Clean the query param from the URL without a reload
+      window.history.replaceState({}, '', '/')
+    }
+  }, [])
+
   // Sync sound toggle with audio module and start background music
   useEffect(() => { setSoundEnabled(soundOn) }, [soundOn])
   useEffect(() => {
