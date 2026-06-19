@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import Link from "next/link"
 
 export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -76,6 +77,11 @@ export default function QuizPage() {
           >
             Retry Quiz
           </button>
+
+          {/* Back to Level 3 button */}
+          <Link href="/planet/level3" className="btn btn-outline mt-4">
+            ⬅ Back to Level 3
+          </Link>
         </div>
       )}
     </main>
