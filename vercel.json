@@ -1,6 +1,6 @@
 {
-  "rootDirectory": "Minus_Magic_Glass_v3-main",
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm build",
+  "installCommand": "cd Minus_Magic_Glass_v3-main && pnpm install",
+  "buildCommand": "cd Minus_Magic_Glass_v3-main && pnpm build",
+  "outputDirectory": "Minus_Magic_Glass_v3-main/.next",
   "framework": "nextjs"
 }
