@@ -78,12 +78,22 @@ export default function QuizPage() {
             Retry Quiz
           </button>
 
-          {/* Back to Level 3 button */}
-          <Link href="/planet/level3" className="btn btn-outline mt-4">
-            ⬅ Back to Level 3
-          </Link>
-        </div>
-      )}
-    </main>
-  )
-}
+         {showResult ? (
+  <div className="mt-6">
+    <p className="text-xl font-semibold">
+      🎉 You scored {score} out of {questions.length}!
+    </p>
+    <button
+      onClick={() => {
+        setCurrentQuestion(0)
+        setScore(0)
+        setShowResult(false)
+      }}
+      className="btn btn-primary mt-4"
+    >
+      Retry Quiz
+    </button>
+  </div>
+) : (
+  // question rendering
+)}
