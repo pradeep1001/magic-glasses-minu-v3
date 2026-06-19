@@ -55,7 +55,16 @@ function PlaceholderLevel({ level, onBack, onComplete }: LevelScreenProps) {
       <Starfield count={70} />
 
       <header className="absolute left-0 top-0 z-10 px-5 py-5">
-        <Button size="icon" variant="secondary" className="rounded-full" aria-label="Back to map" onClick={() => { playClick(); onBack() }}>
+        <Button
+          size="icon"
+          variant="secondary"
+          className="rounded-full"
+          aria-label="Back to map"
+          onClick={() => {
+            playClick()
+            onBack()
+          }}
+        >
           <ArrowLeft className="size-5" />
         </Button>
       </header>
@@ -71,23 +80,50 @@ function PlaceholderLevel({ level, onBack, onComplete }: LevelScreenProps) {
         <span className="font-heading inline-flex items-center gap-2 rounded-full bg-muted px-4 py-1.5 text-sm font-bold text-secondary">
           {level.subtitle}
         </span>
-        <h1 className="font-heading text-4xl font-extrabold text-foreground text-balance">{level.title}</h1>
-        <p className="text-lg font-semibold text-muted-foreground text-pretty md:text-xl">{level.description}</p>
+        <h1 className="font-heading text-4xl font-extrabold text-foreground text-balance">
+          {level.title}
+        </h1>
+        <p className="text-lg font-semibold text-muted-foreground text-pretty md:text-xl">
+          {level.description}
+        </p>
 
-        <div className="mt-2 flex items-center gap-2 rounded-2xl border border-dashed border-border bg-card px-5 py-4 text-sm font-semibold text-muted-foreground">
-          <Wrench className="size-5 text-secondary" />
-          This level&apos;s activity is coming soon — we&apos;ll build it together next!
+        {/* New navigation buttons */}
+        <div className="flex gap-4 mt-4">
+          <Button
+            size="lg"
+            onClick={() => { playClick(); window.location.href = "/planet/level3/watch" }}
+            className="btn btn-outline"
+          >
+            Watch
+          </Button>
+          <Button
+            size="lg"
+            onClick={() => { playClick(); window.location.href = "/planet/level3/learn" }}
+            className="btn btn-outline"
+          >
+            Learn
+          </Button>
+          <Button
+            size="lg"
+            onClick={() => { playClick(); window.location.href = "/planet/level3/quiz" }}
+            className="btn btn-primary"
+          >
+            Quiz
+          </Button>
         </div>
 
         <Button
           size="lg"
           onClick={() => { playClick(); onComplete(level.id) }}
-          className="font-heading mt-2 rounded-full px-8 text-lg font-extrabold"
+          className="font-heading mt-6 rounded-full px-8 text-lg font-extrabold"
         >
           <CheckCircle2 className="size-6" />
           Mark Calibrated
         </Button>
       </div>
     </main>
+  )
+}
+
   )
 }
