@@ -15,39 +15,33 @@ export default function Level3Page() {
         />
         <h2 className="text-lg font-semibold text-purple-400">Level 3</h2>
         <h1 className="text-4xl font-bold mt-2">Edge Detection</h1>
-        <p className="text-lg text-gray-300 mt-2 max-w-xl">
-          Help Minu find the outlines hiding in a picture.
-        </p>
       </div>
 
       {/* Watch, Learn, Quiz Buttons */}
-      <div className="flex gap-6 mb-10">
+      <div className="flex gap-6 mb-12">
         <button
           onClick={() => router.push("/planet/level3/watch")}
-          className="btn btn-outline text-lg px-6 py-3"
+          className="btn btn-outline text-lg px-8 py-4"
         >
           Watch
         </button>
         <button
           onClick={() => router.push("/planet/level3/learn")}
-          className="btn btn-outline text-lg px-6 py-3"
+          className="btn btn-outline text-lg px-8 py-4"
         >
           Learn
         </button>
         <button
           onClick={() => router.push("/planet/level3/quiz")}
-          className="btn btn-primary text-lg px-6 py-3"
+          className="btn btn-primary text-lg px-8 py-4"
         >
           Quiz
         </button>
       </div>
 
-      {/* Activity Section */}
-      <div className="bg-gray-800 rounded-xl p-6 max-w-xl text-gray-200">
-        <p className="mb-4">
-          This level’s activity is coming soon — we’ll build it together next!
-        </p>
-        <button className="btn btn-primary px-6 py-3">
+      {/* Mark Calibrated Section */}
+      <div className="mt-4">
+        <button className="btn btn-primary text-lg px-8 py-4">
           ✅ Mark Calibrated
         </button>
       </div>
