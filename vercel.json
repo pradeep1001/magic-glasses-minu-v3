@@ -1,6 +1,5 @@
 {
-  "installCommand": "cd Minus_Magic_Glass_v3-main && npm install --legacy-peer-deps",
-  "buildCommand": "cd Minus_Magic_Glass_v3-main && npm run build",
-  "outputDirectory": "Minus_Magic_Glass_v3-main/.next",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm build",
   "framework": "nextjs"
 }

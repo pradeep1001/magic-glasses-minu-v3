@@ -2,7 +2,6 @@
   "name": "aravindhan-changes---18_june_2026",
   "version": "1.0.0",
   "description": "",
-  "packageManager": "pnpm@11.7.0",
   "scripts": {
     "dev": "cd Minus_Magic_Glass_v3-main && pnpm dev",
     "build": "cd Minus_Magic_Glass_v3-main && pnpm build"
@@ -10,5 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "next": "14.2.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
 }
