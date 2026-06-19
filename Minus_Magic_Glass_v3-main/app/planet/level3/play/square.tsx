@@ -1,15 +1,15 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function SquareRound() {
   const [traced, setTraced] = useState(false)
   const [showHint, setShowHint] = useState(false)
+  const router = useRouter()
 
-  const handleTrace = () => {
-    setTraced(true)
-  }
+  const handleTrace = () => setTraced(true)
 
-  // Generate 4 sides with dots
+  // Generate dots along the square edges
   const dots = []
   const size = 160
   const step = 20
@@ -44,9 +44,17 @@ export default function SquareRound() {
       </svg>
 
       {traced && (
-        <p className="mt-6 text-green-400 font-semibold">
-          ✅ Square completed! Well done!
-        </p>
+        <>
+          <p className="mt-6 text-green-400 font-semibold">
+            ✅ Square completed! Well done!
+          </p>
+          <button
+            onClick={() => router.push("/planet/level3/play/rhombus")}
+            className="btn btn-primary mt-4"
+          >
+            Next Round →
+          </button>
+        </>
       )}
 
       {/* Hint button */}
