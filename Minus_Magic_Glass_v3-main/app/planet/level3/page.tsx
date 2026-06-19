@@ -17,8 +17,8 @@ export default function Level3Page() {
         <h1 className="text-4xl font-bold mt-2">Edge Detection</h1>
       </div>
 
-      {/* Watch, Learn, Quiz Buttons */}
-      <div className="flex gap-8 mb-12">
+      {/* Watch, Play, Quiz Buttons */}
+      <div className="flex gap-8 mt-4">
         <button
           onClick={() => router.push("/planet/level3/watch")}
           className="btn btn-outline text-lg px-8 py-4"
@@ -26,10 +26,10 @@ export default function Level3Page() {
           Watch
         </button>
         <button
-          onClick={() => router.push("/planet/level3/learn")}
+          onClick={() => router.push("/planet/level3/play")}
           className="btn btn-outline text-lg px-8 py-4"
         >
-          Learn
+          Play
         </button>
         <button
           onClick={() => router.push("/planet/level3/quiz")}
@@ -38,11 +38,6 @@ export default function Level3Page() {
           Quiz
         </button>
       </div>
-
-      {/* Mark Calibrated Button */}
-      <button className="btn btn-primary text-lg px-8 py-4">
-        ✅ Mark Calibrated
-      </button>
     </main>
   )
 }
