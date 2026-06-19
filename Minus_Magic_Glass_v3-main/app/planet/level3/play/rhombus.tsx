@@ -1,71 +1,63 @@
 "use client"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 
 export default function RhombusRound() {
   const [traced, setTraced] = useState(false)
-  const [showHint, setShowHint] = useState(false)
-  const router = useRouter()
+  const [hoveredDots, setHoveredDots] = useState<number[]>([])
 
-  const handleTrace = () => setTraced(true)
-
-  // Generate rhombus dots (diamond shape)
-  const dots = []
-  const step = 20
-  for (let i = 0; i <= 160; i += step) {
-    // Left diagonal
-    dots.push({ x: 100 - i / 2, y: 20 + i })
-    // Right diagonal
-    dots.push({ x: 100 + i / 2, y: 20 + i })
+  const handleTrace = (index: number) => {
+    if (!hoveredDots.includes(index)) {
+      const newDots = [...hoveredDots, index]
+      setHoveredDots(newDots)
+      if (newDots.length >= 12) setTraced(true) // 4 sides × 3 dots each
+    }
   }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center">
       <h1 className="text-3xl font-bold mb-4">Round 3 – Rhombus</h1>
-      <p>Trace over the dots to complete the rhombus!</p>
+      <p className="mb-6 text-gray-300">Trace over the dots to complete the rhombus!</p>
 
-      {/* SVG rhombus with dots */}
-      <svg
-        width="200"
-        height="200"
-        viewBox="0 0 200 200"
-        className="mt-8"
-        onMouseMove={handleTrace}
-        onTouchMove={handleTrace}
-      >
-        {dots.map((dot, i) => (
-          <circle key={i} cx={dot.x} cy={dot.y} r="4" fill="#f59e0b" />
-        ))}
+      <svg width="250" height="250" viewBox="0 0 250 250" className="mt-4">
+        {/* Dots forming a diamond shape */}
+        {[...Array(12)].map((_, i) => {
+          let x = 0, y = 0
+          if (i < 3) { x = 125 - i * 25; y = 50 + i * 50 }       // left diagonal
+          else if (i < 6) { x = 125 + (i - 3) * 25; y = 50 + (i - 3) * 50 } // right diagonal
+          else if (i < 9) { x = 125 + (i - 6) * 25; y = 200 - (i - 6) * 50 } // bottom right
+          else { x = 125 - (i - 9) * 25; y = 200 - (i - 9) * 50 } // bottom left
+          const isHovered = hoveredDots.includes(i)
+          return (
+            <circle
+              key={i}
+              cx={x}
+              cy={y}
+              r="6"
+              fill={isHovered ? "#facc15" : "#a78bfa"}
+              onMouseEnter={() => handleTrace(i)}
+              onTouchStart={() => handleTrace(i)}
+            />
+          )
+        })}
       </svg>
 
+      <p className="mt-6 text-purple-300">
+        Dots traced: {hoveredDots.length}/12
+      </p>
+
       {traced && (
-        <>
-          <p className="mt-6 text-yellow-400 font-semibold">
+        <div className="mt-6 flex flex-col items-center">
+          <p className="text-green-400 font-semibold mb-4">
             ✅ Rhombus completed! Excellent work!
           </p>
-          <button
-            onClick={() => router.push("/planet/level3")}
-            className="btn btn-primary mt-4"
+          <a
+            href="/planet/level3"
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
           >
             Level Complete → Back to Level 3
-          </button>
-        </>
+          </a>
+        </div>
       )}
-
-      {/* Hint button */}
-      <div className="mt-6">
-        <button
-          onClick={() => setShowHint(!showHint)}
-          className="btn btn-outline"
-        >
-          Show Hint
-        </button>
-        {showHint && (
-          <p className="mt-2 text-sm text-yellow-300">
-            Hint: Trace along the diamond outline from top to bottom.
-          </p>
-        )}
-      </div>
     </main>
   )
 }
