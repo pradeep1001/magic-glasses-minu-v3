@@ -1,21 +1,21 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function RhombusRound() {
   const [traced, setTraced] = useState(false)
   const [showHint, setShowHint] = useState(false)
+  const router = useRouter()
 
-  const handleTrace = () => {
-    setTraced(true)
-  }
+  const handleTrace = () => setTraced(true)
 
   // Generate rhombus dots (diamond shape)
   const dots = []
   const step = 20
   for (let i = 0; i <= 160; i += step) {
-    // Top-left to bottom-left diagonal
+    // Left diagonal
     dots.push({ x: 100 - i / 2, y: 20 + i })
-    // Top-right to bottom-right diagonal
+    // Right diagonal
     dots.push({ x: 100 + i / 2, y: 20 + i })
   }
 
@@ -39,9 +39,17 @@ export default function RhombusRound() {
       </svg>
 
       {traced && (
-        <p className="mt-6 text-yellow-400 font-semibold">
-          ✅ Rhombus completed! Excellent work!
-        </p>
+        <>
+          <p className="mt-6 text-yellow-400 font-semibold">
+            ✅ Rhombus completed! Excellent work!
+          </p>
+          <button
+            onClick={() => router.push("/planet/level3")}
+            className="btn btn-primary mt-4"
+          >
+            Level Complete → Back to Level 3
+          </button>
+        </>
       )}
 
       {/* Hint button */}
