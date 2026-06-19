@@ -46,18 +46,17 @@ export default function RhombusRound() {
       </p>
 
       {traced && (
-        <div className="mt-6 flex flex-col items-center">
-          <p className="text-green-400 font-semibold mb-4">
-            ✅ Rhombus completed! Excellent work!
-          </p>
-          <a
-            href="/planet/level3"
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
-          >
-            Level Complete → Back to Level 3
-          </a>
-        </div>
-      )}
-    </main>
-  )
+  <div className="mt-6 flex flex-col items-center">
+    <p className="text-green-400 font-semibold mb-4">
+      ✅ Rhombus completed! Excellent work!
+    </p>
+    <a
+      href="/planet/level3/quiz"
+      className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
+    >
+      Go to Quiz
+    </a>
+  </div>
+)}
+
 }
