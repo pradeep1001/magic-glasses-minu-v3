@@ -1,4 +1,4 @@
-import Link from "next/link"
+iimport Link from "next/link"
 
 export default function Level3Page() {
   return (
@@ -10,6 +10,10 @@ export default function Level3Page() {
         <Link href="/planet/level3/watch" className="btn btn-primary">Watch</Link>
         <Link href="/planet/level3/learn" className="btn btn-secondary">Learn</Link>
         <Link href="/planet/level3/quiz" className="btn btn-accent">Quiz</Link>
+      </div>
+
+      <div className="mt-8">
+        <button className="btn btn-outline">Mark Calibrated</button>
       </div>
     </main>
   )
