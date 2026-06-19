@@ -50,13 +50,10 @@ export default function RhombusRound() {
     <p className="text-green-400 font-semibold mb-4">
       ✅ Rhombus completed! Excellent work!
     </p>
-    <a
-      href="/planet/level3/quiz"
-      className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
-    >
-      Go to Quiz
-    </a>
+    {/* Auto-redirect to Quiz */}
+    <script>
+      {`setTimeout(() => { window.location.href = '/planet/level3/quiz'; }, 1500);`}
+    </script>
+    <p className="text-purple-300">Redirecting to Quiz…</p>
   </div>
 )}
-
-}
