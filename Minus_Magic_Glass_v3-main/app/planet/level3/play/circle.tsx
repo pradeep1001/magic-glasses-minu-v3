@@ -1,13 +1,13 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function CircleRound() {
   const [traced, setTraced] = useState(false)
   const [showHint, setShowHint] = useState(false)
+  const router = useRouter()
 
-  const handleTrace = () => {
-    setTraced(true)
-  }
+  const handleTrace = () => setTraced(true)
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center">
@@ -32,17 +32,22 @@ export default function CircleRound() {
       </svg>
 
       {traced && (
-        <p className="mt-6 text-green-400 font-semibold">
-          ✅ Circle completed! Great job!
-        </p>
+        <>
+          <p className="mt-6 text-green-400 font-semibold">
+            ✅ Circle completed! Great job!
+          </p>
+          <button
+            onClick={() => router.push("/planet/level3/play/square")}
+            className="btn btn-primary mt-4"
+          >
+            Next Round →
+          </button>
+        </>
       )}
 
       {/* Hint button */}
       <div className="mt-6">
-        <button
-          onClick={() => setShowHint(!showHint)}
-          className="btn btn-outline"
-        >
+        <button onClick={() => setShowHint(!showHint)} className="btn btn-outline">
           Show Hint
         </button>
         {showHint && (
