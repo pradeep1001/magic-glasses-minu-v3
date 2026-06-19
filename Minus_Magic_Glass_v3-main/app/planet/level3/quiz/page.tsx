@@ -7,7 +7,6 @@ export default function QuizPage() {
 
   const question = "Which shape is used in Edge Detection Round 1?"
   const options = ["Circle", "Square", "Rhombus"]
-
   const correctAnswer = "Circle"
 
   const handleAnswer = (option: string) => {
