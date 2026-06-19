@@ -1,76 +1,65 @@
 "use client"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 
 export default function SquareRound() {
   const [traced, setTraced] = useState(false)
-  const [showHint, setShowHint] = useState(false)
-  const router = useRouter()
+  const [hoveredDots, setHoveredDots] = useState<number[]>([])
 
-  const handleTrace = () => setTraced(true)
-
-  // Generate dots along the square edges
-  const dots = []
-  const size = 160
-  const step = 20
-  for (let i = 0; i <= size; i += step) {
-    // Top edge
-    dots.push({ x: 20 + i, y: 20 })
-    // Bottom edge
-    dots.push({ x: 20 + i, y: 180 })
-    // Left edge
-    dots.push({ x: 20, y: 20 + i })
-    // Right edge
-    dots.push({ x: 180, y: 20 + i })
+  const handleTrace = (index: number) => {
+    if (!hoveredDots.includes(index)) {
+      const newDots = [...hoveredDots, index]
+      setHoveredDots(newDots)
+      if (newDots.length >= 16) setTraced(true) // 4 sides × 4 dots each
+    }
   }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center">
       <h1 className="text-3xl font-bold mb-4">Round 2 – Square</h1>
-      <p>Trace over the dots to complete the square!</p>
+      <p className="mb-6 text-gray-300">Trace over the dots to complete the square!</p>
 
-      {/* SVG square with dots */}
-      <svg
-        width="200"
-        height="200"
-        viewBox="0 0 200 200"
-        className="mt-8"
-        onMouseMove={handleTrace}
-        onTouchMove={handleTrace}
-      >
-        {dots.map((dot, i) => (
-          <circle key={i} cx={dot.x} cy={dot.y} r="4" fill="#34d399" />
-        ))}
+      <svg width="250" height="250" viewBox="0 0 250 250" className="mt-4">
+        {/* Dots along square edges */}
+        {[...Array(16)].map((_, i) => {
+          const side = Math.floor(i / 4)
+          const pos = i % 4
+          let x = 0, y = 0
+          if (side === 0) { x = 50 + pos * 50; y = 50 }        // top edge
+          if (side === 1) { x = 200; y = 50 + pos * 50 }       // right edge
+          if (side === 2) { x = 200 - pos * 50; y = 200 }      // bottom edge
+          if (side === 3) { x = 50; y = 200 - pos * 50 }       // left edge
+          const isHovered = hoveredDots.includes(i)
+          return (
+            <circle
+              key={i}
+              cx={x}
+              cy={y}
+              r="6"
+              fill={isHovered ? "#facc15" : "#a78bfa"}
+              onMouseEnter={() => handleTrace(i)}
+              onTouchStart={() => handleTrace(i)}
+            />
+          )
+        })}
       </svg>
 
+      <p className="mt-6 text-purple-300">
+        Dots traced: {hoveredDots.length}/16
+      </p>
+
       {traced && (
-        <>
-          <p className="mt-6 text-green-400 font-semibold">
+        <div className="mt-6 flex flex-col items-center">
+          <p className="text-green-400 font-semibold mb-4">
             ✅ Square completed! Well done!
           </p>
-          <button
-            onClick={() => router.push("/planet/level3/play/rhombus")}
-            className="btn btn-primary mt-4"
+          <a
+            href="/planet/level3/triangle"
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
           >
-            Next Round →
-          </button>
-        </>
+            Go to Round 3 – Triangle
+          </a>
+        </div>
       )}
-
-      {/* Hint button */}
-      <div className="mt-6">
-        <button
-          onClick={() => setShowHint(!showHint)}
-          className="btn btn-outline"
-        >
-          Show Hint
-        </button>
-        {showHint && (
-          <p className="mt-2 text-sm text-green-300">
-            Hint: Move along each side of the square to connect the dots.
-          </p>
-        )}
-      </div>
     </main>
   )
 }
