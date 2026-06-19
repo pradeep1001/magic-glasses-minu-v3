@@ -2,7 +2,7 @@
 
 import { lazy, Suspense, useEffect } from "react"
 import Image from "next/image"
-import { ArrowLeft, Wrench, CheckCircle2 } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Starfield } from "@/components/starfield"
 import { minuPoses, type Level } from "@/lib/minu-config"
