@@ -78,11 +78,16 @@ export default function CircleRound() {
       </p>
 
       {/* Completion message */}
-      {traced && (
-        <p className="mt-4 text-green-400 font-semibold">
-          ✅ Circle completed! Great job!
-        </p>
-      )}
-    </main>
-  )
-}
+     {traced && (
+  <div className="mt-6 flex flex-col items-center">
+    <p className="text-green-400 font-semibold mb-4">
+      ✅ Circle completed! Great job!
+    </p>
+    <a
+      href="/planet/level3/square"
+      className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
+    >
+      Go to Round 2 – Square
+    </a>
+  </div>
+)}
