@@ -12,13 +12,12 @@ export default function WatchPage() {
 
       <h1 className="text-3xl font-bold mb-6">Level 3 - Edge Detection</h1>
 
-      <video
-        controls
+      <iframe
+        src="https://drive.google.com/file/d/1uVuvy6kaT7F7Qc3T0j-lbreHT95j6bj1/preview"
         className="w-full max-w-3xl rounded-xl shadow-lg"
-      >
-        <source src="/videos/MINU Cartoon Video 3.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        style={{ height: '480px' }}
+        allow="autoplay"
+      />
     </main>
   )
 }

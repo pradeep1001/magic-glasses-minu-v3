@@ -7,10 +7,12 @@ export default function Level1WatchPage() {
         ← Back to Level 1
       </Link>
       <h1 className="text-3xl font-bold mb-6">Level 1 - Watch</h1>
-      <video controls className="w-full max-w-3xl rounded-xl shadow-lg">
-        <source src="/videos/MINU Cartoon Video 1.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <iframe
+        src="https://drive.google.com/file/d/1UAz_vxqs2PNQXhvmDLdh8LD1TniuWqHZ/preview"
+        className="w-full max-w-3xl rounded-xl shadow-lg"
+        style={{ height: '480px' }}
+        allow="autoplay"
+      />
     </main>
   )
 }

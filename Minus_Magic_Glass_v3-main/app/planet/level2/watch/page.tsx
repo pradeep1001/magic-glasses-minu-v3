@@ -7,10 +7,12 @@ export default function Level2WatchPage() {
         ← Back to Level 2
       </Link>
       <h1 className="text-3xl font-bold mb-6">Level 2 - Watch</h1>
-      <video controls className="w-full max-w-3xl rounded-xl shadow-lg">
-        <source src="/videos/MINU Cartoon Video 2.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <iframe
+        src="https://drive.google.com/file/d/1CfkS048BD3lpBAV6lywvG5ppxAiIK9ZQ/preview"
+        className="w-full max-w-3xl rounded-xl shadow-lg"
+        style={{ height: '480px' }}
+        allow="autoplay"
+      />
     </main>
   )
 }
