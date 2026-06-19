@@ -18,7 +18,7 @@ export default function Level3Page() {
       </div>
 
       {/* Watch, Learn, Quiz Buttons */}
-      <div className="flex gap-6 mb-12">
+      <div className="flex gap-8 mb-12">
         <button
           onClick={() => router.push("/planet/level3/watch")}
           className="btn btn-outline text-lg px-8 py-4"
@@ -39,12 +39,10 @@ export default function Level3Page() {
         </button>
       </div>
 
-      {/* Mark Calibrated Section */}
-      <div className="mt-4">
-        <button className="btn btn-primary text-lg px-8 py-4">
-          ✅ Mark Calibrated
-        </button>
-      </div>
+      {/* Mark Calibrated Button */}
+      <button className="btn btn-primary text-lg px-8 py-4">
+        ✅ Mark Calibrated
+      </button>
     </main>
   )
 }
