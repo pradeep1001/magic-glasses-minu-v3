@@ -2,10 +2,11 @@
 import { useState } from "react"
 
 export default function Level3PlayPage() {
-  const [traced, setTraced] = useState(false)
+  const [completed, setCompleted] = useState(false)
 
+  // Mark tracing complete when user moves over the SVG
   const handleTrace = () => {
-    setTraced(true)
+    setCompleted(true)
   }
 
   return (
@@ -32,7 +33,7 @@ export default function Level3PlayPage() {
         })}
       </svg>
 
-      {traced && (
+      {completed && (
         <p className="mt-6 text-green-400 font-semibold">
           ✅ Circle completed! Great job!
         </p>
