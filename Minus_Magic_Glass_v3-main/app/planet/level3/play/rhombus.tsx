@@ -1,22 +1,14 @@
 "use client"
-import { useState } from "react"
-import Link from "next/link"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function RhombusRound() {
+  const router = useRouter()
   const gridSize = 6
   const totalEdges = 12
   const [edgesFound, setEdgesFound] = useState<number[]>([])
 
-  // Coordinates of boxes forming a rhombus (diamond shape)
-  const rhombusEdges = [
-    2,        // top
-    7, 8,     // upper-left diagonal
-    10, 16,   // upper-right diagonal
-    19, 25,   // lower-left diagonal
-    22, 28,   // lower-right diagonal
-    31, 32,   // bottom
-    33        // bottom tip
-  ]
+  const rhombusEdges = [2,7,8,10,16,19,25,22,28,31,32,33]
 
   const handleClick = (index: number) => {
     if (rhombusEdges.includes(index) && !edgesFound.includes(index)) {
@@ -24,21 +16,18 @@ export default function RhombusRound() {
     }
   }
 
+  useEffect(() => {
+    if (edgesFound.length === totalEdges) {
+      const timer = setTimeout(() => {
+        router.push("/planet/level3/quiz")
+      }, 1500)
+      return () => clearTimeout(timer)
+    }
+  }, [edgesFound, totalEdges, router])
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
-      <Link
-        href="/planet/level3/play/square"
-        className="absolute top-6 left-4 text-sm text-muted-foreground hover:text-foreground"
-      >
-        ← Back to Square Round
-      </Link>
-
-      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Rhombus Round</h1>
-      <p className="text-lg text-muted-foreground mb-4">
-        Trace the edges of the rhombus by clicking the boxes!
-      </p>
-
-      {/* Grid of boxes */}
+      <h1 className="text-3xl font-bold mb-6">Rhombus Round</h1>
       <div className="grid grid-cols-6 gap-1 border-2 border-purple-400 p-2 rounded-lg">
         {[...Array(gridSize * gridSize)].map((_, i) => {
           const isEdge = rhombusEdges.includes(i)
@@ -47,7 +36,7 @@ export default function RhombusRound() {
             <div
               key={i}
               onClick={() => handleClick(i)}
-              className={`w-12 h-12 cursor-pointer transition-colors ${
+              className={`w-12 h-12 cursor-pointer ${
                 isFound
                   ? "bg-purple-400"
                   : isEdge
@@ -58,23 +47,9 @@ export default function RhombusRound() {
           )
         })}
       </div>
-
-      <p className="mt-4 text-sm text-muted-foreground">
-        Edges Found: {edgesFound.length}/{totalEdges}
-      </p>
-
+      <p className="mt-4">Edges Found: {edgesFound.length}/{totalEdges}</p>
       {edgesFound.length === totalEdges && (
-        <div className="mt-6">
-          <p className="text-green-400 font-semibold">
-            ✅ Rhombus completed! Excellent work!
-          </p>
-          <Link
-            href="/planet/level3/quiz"
-            className="mt-4 inline-block rounded-full bg-secondary px-6 py-2 font-bold text-foreground hover:bg-secondary/80"
-          >
-            Next → Quiz
-          </Link>
-        </div>
+        <p className="mt-6 text-green-400 font-semibold">✅ Rhombus completed! Moving to Quiz…</p>
       )}
     </main>
   )
