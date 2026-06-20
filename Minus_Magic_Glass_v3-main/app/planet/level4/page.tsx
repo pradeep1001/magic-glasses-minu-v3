@@ -1,37 +1,39 @@
 "use client"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
-export default function Level4Page() {
-  const router = useRouter()
-
+export default function Level4Hub() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
-      <h1 className="text-3xl font-bold mb-6">Level 4 – Spot the Difference</h1>
-
-      <p className="mb-6 text-lg text-muted-foreground max-w-xl">
-        In this level, you’ll practice identifying differences between pairs of images —
-        focusing on <strong>shape</strong>, <strong>color</strong>, and <strong>texture</strong>.
+      <h1 className="text-4xl font-bold mb-8">Level 4 Hub</h1>
+      <p className="text-lg text-muted-foreground mb-6">
+        Choose what you’d like to do next:
       </p>
 
-      <div className="flex gap-4">
-        <button
-          onClick={() => router.push("/planet/level4/watch")}
-          className="btn btn-outline"
+      <div className="grid grid-cols-2 gap-6">
+        <Link
+          href="/planet/level4/watch"
+          className="btn btn-primary px-6 py-4 text-xl"
         >
-          Watch
-        </button>
-        <button
-          onClick={() => router.push("/planet/level4/learn")}
-          className="btn btn-outline"
+          🎥 Watch
+        </Link>
+        <Link
+          href="/planet/level4/learn"
+          className="btn btn-secondary px-6 py-4 text-xl"
         >
-          Learn
-        </button>
-        <button
-          onClick={() => router.push("/planet/level4/quiz")}
-          className="btn btn-primary"
+          📘 Learn
+        </Link>
+        <Link
+          href="/planet/level4/play"
+          className="btn btn-accent px-6 py-4 text-xl"
         >
-          Quiz
-        </button>
+          🎮 Play
+        </Link>
+        <Link
+          href="/planet/level4/quiz"
+          className="btn btn-outline px-6 py-4 text-xl"
+        >
+          📝 Quiz
+        </Link>
       </div>
     </main>
   )
