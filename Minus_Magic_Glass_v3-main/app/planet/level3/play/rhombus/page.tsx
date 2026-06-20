@@ -5,18 +5,17 @@ import { useRouter } from "next/navigation"
 export default function RhombusRound() {
   const router = useRouter()
   const gridSize = 6
-  const totalEdges = 8
+  const totalEdges = 12
   const [edgesFound, setEdgesFound] = useState<number[]>([])
 
   // Coordinates forming a rhombus (diamond shape) in the 6x6 grid
   const rhombusEdges = [
-    2,        // top tip
-    8, 14,    // upper-left diagonal
-    20,       // left tip
-    26, 32,   // lower-left diagonal
-    28,       // bottom tip
-    22, 16,   // lower-right diagonal
-    10, 4     // upper-right diagonal back to top
+    2, 3,        // top arc
+    8, 14,       // left diagonal
+    20, 26,      // left bottom
+    28, 27,      // bottom arc
+    22, 16,      // right diagonal
+    10, 4        // right top
   ]
 
   const handleTrace = (index: number) => {
@@ -37,7 +36,7 @@ export default function RhombusRound() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
-      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Rhombus Round</h1>
+      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Rhombus Round</h1>
       <p className="text-lg text-muted-foreground mb-4">
         Trace the rhombus by moving over the boxes!
       </p>
