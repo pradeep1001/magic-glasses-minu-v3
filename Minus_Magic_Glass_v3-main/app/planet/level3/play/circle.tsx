@@ -1,12 +1,13 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function CircleRound() {
+  const router = useRouter()
   const gridSize = 6
   const totalEdges = 12
   const [edgesFound, setEdgesFound] = useState<number[]>([])
 
-  // Coordinates of boxes forming the circle outline
   const circleEdges = [2, 3, 8, 9, 14, 15, 20, 21, 26, 27, 32, 33]
 
   const handleClick = (index: number) => {
@@ -15,14 +16,23 @@ export default function CircleRound() {
     }
   }
 
+  // Auto‑advance once all edges are found
+  useEffect(() => {
+    if (edgesFound.length === totalEdges) {
+      const timer = setTimeout(() => {
+        router.push("/planet/level3/play/square")
+      }, 1500) // 1.5s delay
+      return () => clearTimeout(timer)
+    }
+  }, [edgesFound, totalEdges, router])
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
-      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Circle Round</h1>
+      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Circle Round</h1>
       <p className="text-lg text-muted-foreground mb-4">
-        Find the edges – click them!
+        Trace the edges of the circle by clicking the boxes!
       </p>
 
-      {/* Grid of boxes */}
       <div className="grid grid-cols-6 gap-1 border-2 border-yellow-400 p-2 rounded-lg">
         {[...Array(gridSize * gridSize)].map((_, i) => {
           const isEdge = circleEdges.includes(i)
@@ -44,21 +54,13 @@ export default function CircleRound() {
       </div>
 
       <p className="mt-4 text-sm text-muted-foreground">
-        Edges Found: {edgesFound.length}/{totalEdges}
+        Edges Found: {edgesFound.length}/{totalEdges}
       </p>
 
       {edgesFound.length === totalEdges && (
-        <div className="mt-6">
-          <p className="text-green-400 font-semibold">
-            ✅ Circle completed! Great job!
-          </p>
-          <a
-            href="/planet/level3/play/square"
-            className="mt-4 inline-block rounded-full bg-secondary px-6 py-2 font-bold text-foreground hover:bg-secondary/80"
-          >
-            Next → Square Round
-          </a>
-        </div>
+        <p className="mt-6 text-green-400 font-semibold">
+          ✅ Circle completed! Moving to Square…
+        </p>
       )}
     </main>
   )
