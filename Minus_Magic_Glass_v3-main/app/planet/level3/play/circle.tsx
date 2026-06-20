@@ -2,92 +2,60 @@
 import { useState } from "react"
 
 export default function CircleRound() {
-  const [traced, setTraced] = useState(false)
-  const [hoveredDots, setHoveredDots] = useState<number[]>([])
+  const gridSize = 6
+  const totalEdges = 12
+  const [edgesFound, setEdgesFound] = useState<number[]>([])
 
-  const handleTrace = (index: number) => {
-    if (!hoveredDots.includes(index)) {
-      const newDots = [...hoveredDots, index]
-      setHoveredDots(newDots)
-      if (newDots.length >= 20) setTraced(true)
+  const handleClick = (index: number) => {
+    if (!edgesFound.includes(index)) {
+      setEdgesFound([...edgesFound, index])
     }
   }
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center">
-      <h1 className="text-3xl font-bold mb-4">Round 1 – Circle</h1>
-      <p className="mb-6 text-gray-300">Trace over the dots to complete the circle!</p>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
+      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Circle Round</h1>
+      <p className="text-lg text-muted-foreground mb-4">
+        Find the edges – click them!
+      </p>
 
-      {/* SVG circle with dots + connecting lines */}
-      <svg width="250" height="250" viewBox="0 0 250 250" className="mt-4">
-        {/* Draw connecting lines */}
-        {hoveredDots.map((dotIndex, i) => {
-          if (i === 0) return null
-          const prevIndex = hoveredDots[i - 1]
-          const angle1 = (prevIndex / 20) * 2 * Math.PI
-          const angle2 = (dotIndex / 20) * 2 * Math.PI
-          const x1 = 125 + 90 * Math.cos(angle1)
-          const y1 = 125 + 90 * Math.sin(angle1)
-          const x2 = 125 + 90 * Math.cos(angle2)
-          const y2 = 125 + 90 * Math.sin(angle2)
+      <div className="grid grid-cols-6 gap-1 border-2 border-yellow-400 p-2 rounded-lg">
+        {[...Array(gridSize * gridSize)].map((_, i) => {
+          const isEdge = [2, 3, 8, 9, 14, 15, 20, 21, 26, 27, 32, 33].includes(i)
+          const isFound = edgesFound.includes(i)
           return (
-            <line
-              key={`line-${i}`}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="#facc15"
-              strokeWidth="3"
-              strokeLinecap="round"
-            >
-              <animate
-                attributeName="stroke-dasharray"
-                from="0,200"
-                to="200,0"
-                dur="0.3s"
-                fill="freeze"
-              />
-            </line>
-          )
-        })}
-
-        {/* Render dots */}
-        {[...Array(20)].map((_, i) => {
-          const angle = (i / 20) * 2 * Math.PI
-          const x = 125 + 90 * Math.cos(angle)
-          const y = 125 + 90 * Math.sin(angle)
-          const isHovered = hoveredDots.includes(i)
-          return (
-            <circle
+            <div
               key={i}
-              cx={x}
-              cy={y}
-              r="6"
-              fill={isHovered ? "#facc15" : "#a78bfa"}
-              onMouseEnter={() => handleTrace(i)}
-              onTouchStart={() => handleTrace(i)}
+              onClick={() => isEdge && handleClick(i)}
+              className={`w-12 h-12 cursor-pointer ${
+                isFound
+                  ? "bg-yellow-400"
+                  : isEdge
+                  ? "bg-gray-600 hover:bg-yellow-200"
+                  : "bg-gray-800"
+              }`}
             />
           )
         })}
-      </svg>
+      </div>
 
-      {/* Progress display */}
-      <p className="mt-6 text-purple-300">
-        Dots traced: {hoveredDots.length}/20
+      <p className="mt-4 text-sm text-muted-foreground">
+        Edges Found: {edgesFound.length}/{totalEdges}
       </p>
 
-      {/* Completion message */}
-     {traced && (
-  <div className="mt-6 flex flex-col items-center">
-    <p className="text-green-400 font-semibold mb-4">
-      ✅ Circle completed! Great job!
-    </p>
-    <a
-      href="/planet/level3/square"
-      className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition"
-    >
-      Go to Round 2 – Square
-    </a>
-  </div>
-)}
+      {edgesFound.length === totalEdges && (
+        <div className="mt-6">
+          <p className="text-green-400 font-semibold">
+            ✅ Circle completed! Great job!
+          </p>
+          <a
+            href="/planet/level3/play/square"
+            className="mt-4 inline-block rounded-full bg-secondary px-6 py-2 font-bold text-foreground hover:bg-secondary/80"
+          >
+            Next → Square Round
+          </a>
+        </div>
+      )}
+    </main>
+  )
+}
