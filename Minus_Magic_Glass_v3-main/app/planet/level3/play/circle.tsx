@@ -6,8 +6,11 @@ export default function CircleRound() {
   const totalEdges = 12
   const [edgesFound, setEdgesFound] = useState<number[]>([])
 
+  // Coordinates of boxes forming the circle outline
+  const circleEdges = [2, 3, 8, 9, 14, 15, 20, 21, 26, 27, 32, 33]
+
   const handleClick = (index: number) => {
-    if (!edgesFound.includes(index)) {
+    if (circleEdges.includes(index) && !edgesFound.includes(index)) {
       setEdgesFound([...edgesFound, index])
     }
   }
@@ -19,15 +22,16 @@ export default function CircleRound() {
         Find the edges – click them!
       </p>
 
+      {/* Grid of boxes */}
       <div className="grid grid-cols-6 gap-1 border-2 border-yellow-400 p-2 rounded-lg">
         {[...Array(gridSize * gridSize)].map((_, i) => {
-          const isEdge = [2, 3, 8, 9, 14, 15, 20, 21, 26, 27, 32, 33].includes(i)
+          const isEdge = circleEdges.includes(i)
           const isFound = edgesFound.includes(i)
           return (
             <div
               key={i}
-              onClick={() => isEdge && handleClick(i)}
-              className={`w-12 h-12 cursor-pointer ${
+              onClick={() => handleClick(i)}
+              className={`w-12 h-12 cursor-pointer transition-colors ${
                 isFound
                   ? "bg-yellow-400"
                   : isEdge
