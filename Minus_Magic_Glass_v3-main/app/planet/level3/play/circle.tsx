@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation"
 export default function CircleRound() {
   const router = useRouter()
   const gridSize = 6
-  const totalEdges = 7
+  const totalEdges = 8
   const [edgesFound, setEdgesFound] = useState<number[]>([])
 
-  // Simplified circle path: top → left → bottom → right → back to top
+  // Circle outline coordinates (matching your drawn circle)
   const circleEdges = [3, 4, 8, 14, 21, 22, 17, 11]
 
-  const handleClick = (index: number) => {
+  // Mark boxes when hovered or touched
+  const handleTrace = (index: number) => {
     if (circleEdges.includes(index) && !edgesFound.includes(index)) {
       setEdgesFound([...edgesFound, index])
     }
@@ -29,9 +30,9 @@ export default function CircleRound() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
-      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Circle Round</h1>
+      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Circle Round</h1>
       <p className="text-lg text-muted-foreground mb-4">
-        Trace the circle by clicking the boxes!
+        Trace the circle by moving over the boxes!
       </p>
 
       {/* Grid of boxes */}
@@ -42,8 +43,9 @@ export default function CircleRound() {
           return (
             <div
               key={i}
-              onClick={() => handleClick(i)}
-              className={`w-12 h-12 cursor-pointer transition-colors ${
+              onMouseEnter={() => handleTrace(i)}
+              onTouchMove={() => handleTrace(i)}
+              className={`w-12 h-12 cursor-crosshair transition-colors ${
                 isFound
                   ? "bg-yellow-400"
                   : isEdge
