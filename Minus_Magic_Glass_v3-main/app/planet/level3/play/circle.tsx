@@ -16,23 +16,18 @@ export default function CircleRound() {
     }
   }
 
-  // Auto‑advance once all edges are found
   useEffect(() => {
     if (edgesFound.length === totalEdges) {
       const timer = setTimeout(() => {
         router.push("/planet/level3/play/square")
-      }, 1500) // 1.5s delay
+      }, 1500)
       return () => clearTimeout(timer)
     }
   }, [edgesFound, totalEdges, router])
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
-      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Circle Round</h1>
-      <p className="text-lg text-muted-foreground mb-4">
-        Trace the edges of the circle by clicking the boxes!
-      </p>
-
+      <h1 className="text-3xl font-bold mb-6">Circle Round</h1>
       <div className="grid grid-cols-6 gap-1 border-2 border-yellow-400 p-2 rounded-lg">
         {[...Array(gridSize * gridSize)].map((_, i) => {
           const isEdge = circleEdges.includes(i)
@@ -41,7 +36,7 @@ export default function CircleRound() {
             <div
               key={i}
               onClick={() => handleClick(i)}
-              className={`w-12 h-12 cursor-pointer transition-colors ${
+              className={`w-12 h-12 cursor-pointer ${
                 isFound
                   ? "bg-yellow-400"
                   : isEdge
@@ -52,15 +47,9 @@ export default function CircleRound() {
           )
         })}
       </div>
-
-      <p className="mt-4 text-sm text-muted-foreground">
-        Edges Found: {edgesFound.length}/{totalEdges}
-      </p>
-
+      <p className="mt-4">Edges Found: {edgesFound.length}/{totalEdges}</p>
       {edgesFound.length === totalEdges && (
-        <p className="mt-6 text-green-400 font-semibold">
-          ✅ Circle completed! Moving to Square…
-        </p>
+        <p className="mt-6 text-green-400 font-semibold">✅ Circle completed! Moving to Square…</p>
       )}
     </main>
   )
