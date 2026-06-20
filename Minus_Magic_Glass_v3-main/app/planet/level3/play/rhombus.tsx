@@ -1,59 +1,81 @@
 "use client"
 import { useState } from "react"
+import Link from "next/link"
 
 export default function RhombusRound() {
-  const [traced, setTraced] = useState(false)
-  const [hoveredDots, setHoveredDots] = useState<number[]>([])
+  const gridSize = 6
+  const totalEdges = 12
+  const [edgesFound, setEdgesFound] = useState<number[]>([])
 
-  const handleTrace = (index: number) => {
-    if (!hoveredDots.includes(index)) {
-      const newDots = [...hoveredDots, index]
-      setHoveredDots(newDots)
-      if (newDots.length >= 12) setTraced(true) // 4 sides × 3 dots each
+  // Coordinates of boxes forming a rhombus (diamond shape)
+  const rhombusEdges = [
+    2,        // top
+    7, 8,     // upper-left diagonal
+    10, 16,   // upper-right diagonal
+    19, 25,   // lower-left diagonal
+    22, 28,   // lower-right diagonal
+    31, 32,   // bottom
+    33        // bottom tip
+  ]
+
+  const handleClick = (index: number) => {
+    if (rhombusEdges.includes(index) && !edgesFound.includes(index)) {
+      setEdgesFound([...edgesFound, index])
     }
   }
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center">
-      <h1 className="text-3xl font-bold mb-4">Round 3 – Rhombus</h1>
-      <p className="mb-6 text-gray-300">Trace over the dots to complete the rhombus!</p>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-background text-center p-6">
+      <Link
+        href="/planet/level3/play/square"
+        className="absolute top-6 left-4 text-sm text-muted-foreground hover:text-foreground"
+      >
+        ← Back to Square Round
+      </Link>
 
-      <svg width="250" height="250" viewBox="0 0 250 250" className="mt-4">
-        {/* Dots forming a diamond shape */}
-        {[...Array(12)].map((_, i) => {
-          let x = 0, y = 0
-          if (i < 3) { x = 125 - i * 25; y = 50 + i * 50 }       // left diagonal
-          else if (i < 6) { x = 125 + (i - 3) * 25; y = 50 + (i - 3) * 50 } // right diagonal
-          else if (i < 9) { x = 125 + (i - 6) * 25; y = 200 - (i - 6) * 50 } // bottom right
-          else { x = 125 - (i - 9) * 25; y = 200 - (i - 9) * 50 } // bottom left
-          const isHovered = hoveredDots.includes(i)
+      <h1 className="text-3xl font-bold mb-6">Level 3 – Play: Rhombus Round</h1>
+      <p className="text-lg text-muted-foreground mb-4">
+        Trace the edges of the rhombus by clicking the boxes!
+      </p>
+
+      {/* Grid of boxes */}
+      <div className="grid grid-cols-6 gap-1 border-2 border-purple-400 p-2 rounded-lg">
+        {[...Array(gridSize * gridSize)].map((_, i) => {
+          const isEdge = rhombusEdges.includes(i)
+          const isFound = edgesFound.includes(i)
           return (
-            <circle
+            <div
               key={i}
-              cx={x}
-              cy={y}
-              r="6"
-              fill={isHovered ? "#facc15" : "#a78bfa"}
-              onMouseEnter={() => handleTrace(i)}
-              onTouchStart={() => handleTrace(i)}
+              onClick={() => handleClick(i)}
+              className={`w-12 h-12 cursor-pointer transition-colors ${
+                isFound
+                  ? "bg-purple-400"
+                  : isEdge
+                  ? "bg-gray-600 hover:bg-purple-200"
+                  : "bg-gray-800"
+              }`}
             />
           )
         })}
-      </svg>
+      </div>
 
-      <p className="mt-6 text-purple-300">
-        Dots traced: {hoveredDots.length}/12
+      <p className="mt-4 text-sm text-muted-foreground">
+        Edges Found: {edgesFound.length}/{totalEdges}
       </p>
 
-      {traced && (
-  <div className="mt-6 flex flex-col items-center">
-    <p className="text-green-400 font-semibold mb-4">
-      ✅ Rhombus completed! Excellent work!
-    </p>
-    {/* Auto-redirect to Quiz */}
-    <script>
-      {`setTimeout(() => { window.location.href = '/planet/level3/quiz'; }, 1500);`}
-    </script>
-    <p className="text-purple-300">Redirecting to Quiz…</p>
-  </div>
-)}
+      {edgesFound.length === totalEdges && (
+        <div className="mt-6">
+          <p className="text-green-400 font-semibold">
+            ✅ Rhombus completed! Excellent work!
+          </p>
+          <Link
+            href="/planet/level3/quiz"
+            className="mt-4 inline-block rounded-full bg-secondary px-6 py-2 font-bold text-foreground hover:bg-secondary/80"
+          >
+            Next → Quiz
+          </Link>
+        </div>
+      )}
+    </main>
+  )
+}
