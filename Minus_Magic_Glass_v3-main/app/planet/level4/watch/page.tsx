@@ -16,12 +16,18 @@ export default function Level4Watch() {
           This skill is important in computer vision tasks like <strong>anomaly detection</strong> 
           or <strong>quality inspection</strong>.
         </p>
-
-        <p>
-          A demo video or animation can be embedded here to show how differences 
-          appear step by step — from the original pair to the highlighted variation.
-        </p>
       </section>
+
+      {/* 🎥 Embed video lesson */}
+      <div className="w-full max-w-lg aspect-video bg-gray-800 flex items-center justify-center rounded-lg mt-6">
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ" // replace with your actual video link
+          title="Level 4 Video Lesson"
+          className="w-full h-full rounded-lg"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
 
       {/* Back to Level 4 hub */}
       <a href="/planet/level4" className="btn btn-outline mt-8">
