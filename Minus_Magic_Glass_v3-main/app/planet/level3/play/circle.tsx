@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation"
 export default function CircleRound() {
   const router = useRouter()
   const gridSize = 6
-  const totalEdges = 12
+  const totalEdges = 7
   const [edgesFound, setEdgesFound] = useState<number[]>([])
 
-  // Coordinates of boxes forming a circle outline in the 6x6 grid
-  const circleEdges = [2, 3, 8, 9, 14, 15, 20, 21, 26, 27, 32, 33]
+  // Simplified circle path: top → left → bottom → right → back to top
+  const circleEdges = [3, 4, 8, 14, 21, 22, 17, 11]
 
   const handleClick = (index: number) => {
     if (circleEdges.includes(index) && !edgesFound.includes(index)) {
